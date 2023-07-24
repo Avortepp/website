@@ -1,0 +1,25 @@
+{% extends "learning_logs/base.html" %}
+{% load custom_filters %}
+
+{% block page_header %}
+   <h3>{{ topic }}</h3>
+{% endblock page_header %}
+
+{% block content %}
+   <p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p>
+   <div class="container mt-4">
+      <div class="row justify-content-center">
+         <div class="col-md-6">
+            <h4>Add a new entry: </h4>
+            <form action="{% url 'learning_logs:new_entry' topic.id %}" method="post">
+               {% csrf_token %}
+               <div class="form-group">
+                  {{ form.text.label_tag }}
+                  {{ form.text|add_class:"form-control" }}
+               </div>
+               <button type="submit" class="btn btn-primary">Add Entry</button>
+            </form>
+         </div>
+      </div>
+   </div>
+{% endblock content %}
